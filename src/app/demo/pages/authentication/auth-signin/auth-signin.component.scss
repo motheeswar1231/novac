@@ -1,0 +1,2692 @@
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+* {
+  font-family:  -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+}
+
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+
+/* =========================================================
+   PROFESSIONAL CONFIRMATION POPUP
+   ========================================================= */
+
+.confirmation-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(8, 43, 76, 0.88),
+      rgba(16, 82, 132, 0.88)
+    );
+
+  backdrop-filter: blur(6px);
+}
+
+
+/* -------------------------
+   MODAL
+   ------------------------- */
+
+.confirmation-modal {
+  width: 920px;
+  max-width: 100%;
+
+  background: #ffffff;
+
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.28);
+
+  animation: modalAppear 0.35s ease;
+}
+
+
+/* -------------------------
+   MODAL HEADER
+   ------------------------- */
+
+.modal-header {
+  display: flex;
+  align-items: center;
+
+  padding: 28px 34px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0b67b2,
+      #155fa8
+    );
+
+  color: #ffffff;
+}
+
+.header-icon {
+  width: 58px;
+  height: 58px;
+  min-width: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 18px;
+
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.16);
+
+  font-size: 27px;
+}
+
+.header-content h2 {
+  margin: 0 0 5px;
+
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.header-content p {
+  margin: 0;
+
+  font-size: 14px;
+
+  opacity: 0.9;
+}
+
+
+/* -------------------------
+   MODAL BODY
+   ------------------------- */
+
+.modal-body {
+  padding: 30px 34px 20px;
+}
+
+
+/* -------------------------
+   INFORMATION BOX
+   ------------------------- */
+
+.information-box {
+  display: flex;
+
+  gap: 15px;
+
+  padding: 20px;
+
+  margin-bottom: 25px;
+
+  background: #f4f8fc;
+
+  border: 1px solid #dce9f5;
+
+  border-left: 4px solid #0b67b2;
+
+  border-radius: 10px;
+}
+
+.info-icon {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #e2effa;
+
+  color: #0b67b2;
+
+  font-size: 18px;
+}
+
+.information-box h4 {
+  margin: 0 0 8px;
+
+  color: #17324d;
+
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.information-box p {
+  margin: 0;
+
+  color: #455b70;
+
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+
+/* -------------------------
+   CONFIRMATION LIST
+   ------------------------- */
+
+.confirmation-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+
+/* -------------------------
+   CHECKBOX ITEM
+   ------------------------- */
+
+.confirmation-item {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  padding: 17px 18px;
+
+  border: 1px solid #dce2e8;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.confirmation-item:hover {
+  background: #f8fbfe;
+
+  border-color: #9bbbd6;
+}
+
+.confirmation-item.checked {
+  background: #f1f8fd;
+
+  border-color: #2581c4;
+
+  box-shadow:
+    0 2px 8px rgba(11, 103, 178, 0.08);
+}
+
+
+/* Hide actual checkbox */
+
+.confirmation-item input {
+  position: absolute;
+
+  opacity: 0;
+
+  width: 0;
+  height: 0;
+}
+
+
+/* Custom checkbox */
+
+.confirmation-item .custom-checkbox {
+  width: 25px;
+  height: 25px;
+  min-width: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 15px;
+
+  border: 2px solid #aeb9c4;
+
+  border-radius: 6px;
+
+  background: #ffffff;
+
+  color: #ffffff;
+
+  transition: all 0.2s ease;
+}
+
+.confirmation-item.checked .custom-checkbox {
+  border-color: #0b67b2;
+
+  background: #0b67b2;
+}
+
+.custom-checkbox i {
+  font-size: 15px;
+
+  font-weight: bold;
+}
+
+
+/* -------------------------
+   CHECKBOX TEXT
+   ------------------------- */
+
+.checkbox-text {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.main-text {
+  color: #263746;
+
+  font-size: 15px;
+
+  line-height: 1.5;
+}
+
+.main-text strong {
+  color: #123f63;
+}
+
+.required-text {
+  color: #8a98a5;
+
+  font-size: 11px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+
+  font-weight: 600;
+}
+
+
+/* -------------------------
+   MODAL FOOTER
+   ------------------------- */
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 34px;
+
+  border-top: 1px solid #e5e9ed;
+
+  background: #fafcfe;
+}
+
+
+/* Status */
+
+.status-message {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  color: #87939e;
+
+  font-size: 13px;
+}
+
+.status-message i {
+  font-size: 17px;
+}
+
+
+/* Agree button */
+
+.agree-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  min-width: 190px;
+
+  padding: 12px 20px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #d9dfe5;
+
+  color: #89939c;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.3px;
+
+  cursor: not-allowed;
+
+  transition: all 0.2s ease;
+}
+
+.agree-button.active {
+  background: #0b67b2;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 15px rgba(11, 103, 178, 0.25);
+}
+
+.agree-button.active:hover {
+  background: #085895;
+
+  transform: translateY(-1px);
+}
+
+.agree-button i {
+  font-size: 16px;
+}
+
+
+/* -------------------------
+   POPUP ANIMATION
+   ------------------------- */
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(25px)
+      scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+:host {
+  display: block;
+  min-height: 100vh;
+}/* =========================================================
+   NOACARE LOGIN SCREEN
+   FULLY RESPONSIVE
+   Desktop + Laptop + Tablet + Mobile
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL / IOS FONT
+   ========================================================= */
+
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.login-page,
+.signup-overlay {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* =========================================================
+   MAIN LOGIN PAGE
+   ========================================================= */
+
+.login-page {
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(420px, 0.85fr);
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  color: #172033;
+}
+
+
+/* =========================================================
+   LEFT VISUAL PANEL
+   ========================================================= */
+
+.visual-panel {
+  position: relative;
+
+  min-width: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      #f5f9ff 0%,
+      #edf5ff 48%,
+      #f8fbff 100%
+    );
+}
+
+
+/* =========================================================
+   BACKGROUND CIRCLES
+   ========================================================= */
+
+.visual-background-circle {
+  position: absolute;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.circle-one {
+  width: clamp(280px, 32vw, 560px);
+  height: clamp(280px, 32vw, 560px);
+
+  top: -18%;
+  left: -14%;
+
+  background: rgba(22, 119, 255, 0.055);
+}
+
+.circle-two {
+  width: clamp(220px, 25vw, 440px);
+  height: clamp(220px, 25vw, 440px);
+
+  right: -12%;
+  bottom: -15%;
+
+  background: rgba(22, 119, 255, 0.06);
+}
+
+.circle-three {
+  width: clamp(120px, 13vw, 240px);
+  height: clamp(120px, 13vw, 240px);
+
+  right: 18%;
+  top: 12%;
+
+  border: 1px solid rgba(22, 119, 255, 0.08);
+}
+
+
+/* =========================================================
+   VISUAL CONTENT
+   ========================================================= */
+
+.visual-content {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(100%, 680px);
+
+  padding:
+    clamp(40px, 7vw, 100px)
+    clamp(30px, 6vw, 90px);
+}
+
+
+/* =========================================================
+   APPLICATION LOGO
+   ========================================================= */
+
+.application-logo {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: clamp(28px, 4vw, 50px);
+}
+
+.application-logo img {
+  display: block;
+
+  width: clamp(100px, 12vw, 170px);
+  height: auto;
+
+  object-fit: contain;
+}
+
+
+/* =========================================================
+   LEFT HEADING
+   ========================================================= */
+
+.visual-content h1 {
+  max-width: 650px;
+
+  margin: 0;
+
+  font-size: clamp(34px, 4vw, 62px);
+
+  line-height: 1.08;
+
+  font-weight: 650;
+
+  letter-spacing: -0.045em;
+
+  color: #172033;
+}
+
+.visual-content h1 span {
+  display: block;
+
+  margin-top: 8px;
+
+  color: #1677ff;
+}
+
+
+/* =========================================================
+   VISUAL DESCRIPTION
+   ========================================================= */
+
+.visual-description {
+  max-width: 520px;
+
+  margin:
+    clamp(20px, 3vw, 30px)
+    0
+    0;
+
+  font-size: clamp(15px, 1.3vw, 18px);
+
+  line-height: 1.6;
+
+  font-weight: 400;
+
+  color: #697586;
+}
+
+
+/* =========================================================
+   MEDICAL LINE
+   ========================================================= */
+
+.medical-line {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: clamp(28px, 4vw, 44px);
+}
+
+.medical-line span {
+  display: block;
+
+  width: 5px;
+
+  border-radius: 999px;
+
+  background: #1677ff;
+}
+
+.medical-line span:nth-child(1) {
+  height: 12px;
+}
+
+.medical-line span:nth-child(2) {
+  height: 25px;
+}
+
+.medical-line span:nth-child(3) {
+  height: 40px;
+}
+
+.medical-line span:nth-child(4) {
+  height: 25px;
+}
+
+.medical-line span:nth-child(5) {
+  height: 12px;
+}
+
+
+/* =========================================================
+   VISUAL FOOTER
+   ========================================================= */
+
+.visual-footer {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  margin-top: clamp(30px, 5vw, 60px);
+
+  font-size: 13px;
+
+  color: #748094;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+
+  flex: 0 0 auto;
+
+  border-radius: 50%;
+
+  background: #22c55e;
+
+  box-shadow:
+    0 0 0 4px rgba(34, 197, 94, 0.10);
+}
+
+
+/* =========================================================
+   RIGHT LOGIN PANEL
+   ========================================================= */
+
+.login-panel {
+  position: relative;
+
+  min-width: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow-y: auto;
+
+  padding:
+    clamp(30px, 5vw, 70px)
+    clamp(25px, 5vw, 80px);
+
+  background: #ffffff;
+
+  border-left: 1px solid #edf0f4;
+}
+
+
+/* =========================================================
+   LOGIN CONTAINER
+   ========================================================= */
+
+.login-container {
+  width: 100%;
+  max-width: 470px;
+
+  margin: auto;
+}
+
+
+/* =========================================================
+   LOGIN LOGO
+   ========================================================= */
+
+.login-logo {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: clamp(22px, 3vw, 34px);
+}
+
+.login-logo img {
+  display: block;
+
+  width: clamp(90px, 10vw, 140px);
+  height: auto;
+
+  object-fit: contain;
+}
+
+
+/* =========================================================
+   LOGIN HEADING
+   ========================================================= */
+
+.login-container h2 {
+  margin: 0;
+
+  font-size: clamp(25px, 2.5vw, 34px);
+
+  line-height: 1.2;
+
+  font-weight: 650;
+
+  letter-spacing: -0.035em;
+
+  color: #172033;
+}
+
+.login-subtitle {
+  margin:
+    9px
+    0
+    clamp(25px, 3vw, 35px);
+
+  font-size: clamp(13px, 1.1vw, 15px);
+
+  line-height: 1.55;
+
+  color: #7a8494;
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.form-group {
+  width: 100%;
+
+  margin-bottom: 19px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 13px;
+
+  line-height: 1.4;
+
+  font-weight: 600;
+
+  color: #344054;
+}
+
+
+/* =========================================================
+   INPUT BOX
+   ========================================================= */
+
+.input-box {
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+
+  border: 1px solid #d9dee7;
+
+  border-radius: 11px;
+
+  background: #ffffff;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.input-box:focus-within {
+  border-color: #1677ff;
+
+  box-shadow:
+    0 0 0 3px rgba(22, 119, 255, 0.09);
+}
+
+
+/* =========================================================
+   INPUT ICON
+   ========================================================= */
+
+.input-icon {
+  width: 46px;
+
+  flex: 0 0 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #7b8798;
+}
+
+.input-icon svg {
+  width: 19px;
+  height: 19px;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 1.7;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.input-box input {
+  min-width: 0;
+
+  flex: 1;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 0 14px 0 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #172033;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 400;
+}
+
+.input-box input::placeholder {
+  color: #a1a9b5;
+}
+
+
+/* =========================================================
+   HARD-CODED HOSPITAL
+   ========================================================= */
+
+.hospital-box input {
+  cursor: default;
+
+  color: #475467;
+
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   PASSWORD BUTTON
+   ========================================================= */
+
+.password-toggle {
+  width: 46px;
+  height: 100%;
+
+  flex: 0 0 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #7b8798;
+
+  cursor: pointer;
+
+  transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+  color: #1677ff;
+}
+
+.password-toggle svg {
+  width: 19px;
+  height: 19px;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 1.7;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+}
+
+
+/* =========================================================
+   LOGIN OPTIONS
+   ========================================================= */
+
+.login-options {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin:
+    4px
+    0
+    22px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  min-width: 0;
+
+  font-size: 13px;
+
+  color: #667085;
+
+  cursor: pointer;
+
+  user-select: none;
+}
+
+.remember-me input {
+  position: absolute;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.remember-me span {
+  width: 17px;
+  height: 17px;
+
+  flex: 0 0 17px;
+
+  border: 1px solid #cbd2dc;
+
+  border-radius: 5px;
+
+  background: #ffffff;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.remember-me input:checked + span {
+  border-color: #1677ff;
+
+  background: #1677ff;
+}
+
+.login-options a {
+  flex: 0 0 auto;
+
+  font-size: 13px;
+
+  font-weight: 500;
+
+  color: #1677ff;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+}
+
+.login-options a:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
+.login-button {
+  width: 100%;
+  min-height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 12px 20px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  background: #1677ff;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 7px 20px rgba(22, 119, 255, 0.20);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.login-button:hover {
+  background: #0869eb;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 10px 25px rgba(22, 119, 255, 0.25);
+}
+
+.login-button:active {
+  transform: translateY(0);
+}
+
+.button-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-arrow svg {
+  width: 18px;
+  height: 18px;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 2;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+}
+
+
+/* =========================================================
+   SIGNUP SECTION
+   ========================================================= */
+
+.signup-section {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 5px;
+
+  margin-top: 21px;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  color: #697586;
+
+  text-align: center;
+}
+
+.signup-link {
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #1677ff;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.signup-link:hover {
+  color: #005dcc;
+
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   SECURITY NOTE
+   ========================================================= */
+
+.security-note {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  margin-top: clamp(28px, 4vw, 42px);
+
+  color: #8a94a3;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+
+  text-align: center;
+}
+
+.security-note svg {
+  width: 16px;
+  height: 16px;
+
+  flex: 0 0 auto;
+
+  fill: none;
+
+  stroke: #6f7d90;
+
+  stroke-width: 1.7;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+}
+
+
+/* =========================================================
+   VERSION
+   ========================================================= */
+
+.application-version {
+  margin-top: 13px;
+
+  text-align: center;
+
+  font-size: 11px;
+
+  color: #b0b7c3;
+}
+
+
+/* =========================================================
+   SIGNUP MODAL OVERLAY
+   ========================================================= */
+
+.signup-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  width: 100%;
+  height: 100%;
+
+  min-height: 100dvh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    clamp(12px, 3vw, 30px);
+
+  overflow-y: auto;
+
+  background: rgba(15, 23, 42, 0.48);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  animation: signupOverlayIn 0.22s ease;
+}
+
+
+/* =========================================================
+   SIGNUP MODAL
+   ========================================================= */
+
+.signup-modal {
+  position: relative;
+
+  width: min(100%, 640px);
+
+  max-height: calc(100dvh - 30px);
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  margin: auto;
+
+  border: 1px solid rgba(226, 232, 240, 0.9);
+
+  border-radius: clamp(16px, 3vw, 24px);
+
+  background: #ffffff;
+
+  box-shadow:
+    0 30px 80px rgba(15, 23, 42, 0.20),
+    0 8px 30px rgba(15, 23, 42, 0.08);
+
+  animation: signupModalIn 0.28s ease;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    #cbd5e1
+    transparent;
+}
+
+.signup-modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.signup-modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.signup-modal::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+
+  background: #cbd5e1;
+}
+
+
+/* =========================================================
+   SIGNUP HEADER
+   ========================================================= */
+
+.signup-header {
+  width: 100%;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding:
+    clamp(20px, 4vw, 30px)
+    clamp(20px, 4vw, 30px)
+    20px;
+
+  border-bottom: 1px solid #eef1f5;
+}
+
+.signup-header h2 {
+  margin: 0;
+
+  font-size: clamp(20px, 3vw, 25px);
+
+  line-height: 1.25;
+
+  font-weight: 650;
+
+  letter-spacing: -0.025em;
+
+  color: #172033;
+}
+
+.signup-header p {
+  margin: 6px 0 0;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  color: #7a8494;
+}
+
+
+/* =========================================================
+   SIGNUP ICON
+   ========================================================= */
+
+.signup-icon {
+  width: 43px;
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 13px;
+
+  border-radius: 12px;
+
+  background: #edf5ff;
+
+  color: #1677ff;
+}
+
+.signup-icon svg {
+  width: 22px;
+  height: 22px;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 1.7;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+}
+
+
+/* =========================================================
+   MODAL CLOSE
+   ========================================================= */
+
+.modal-close {
+  width: 35px;
+  height: 35px;
+
+  flex: 0 0 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #f5f7fa;
+
+  color: #687386;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 23px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.modal-close:hover {
+  background: #e9edf3;
+
+  color: #172033;
+
+  transform: rotate(90deg);
+}
+
+
+/* =========================================================
+   SIGNUP FORM
+   ========================================================= */
+
+.signup-form {
+  width: 100%;
+
+  padding:
+    clamp(20px, 4vw, 26px)
+    clamp(20px, 4vw, 30px)
+    18px;
+}
+
+
+/* =========================================================
+   FORM ROW
+   ========================================================= */
+
+.form-row {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
+  gap: 16px;
+}
+
+
+/* =========================================================
+   SIGNUP FORM GROUP
+   ========================================================= */
+
+.signup-form-group {
+  width: 100%;
+
+  min-width: 0;
+
+  margin-bottom: 17px;
+}
+
+.signup-form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-size: 13px;
+
+  line-height: 1.4;
+
+  font-weight: 600;
+
+  color: #344054;
+}
+
+
+/* =========================================================
+   SIGNUP INPUTS
+   ========================================================= */
+
+.signup-form-group input,
+.signup-form-group select {
+  display: block;
+
+  width: 100%;
+  max-width: 100%;
+
+  height: 47px;
+
+  padding:
+    0
+    13px;
+
+  border: 1px solid #d9dee7;
+
+  border-radius: 10px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #1d2939;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  line-height: 1.2;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.signup-form-group input::placeholder {
+  color: #a1a9b5;
+}
+
+.signup-form-group input:focus,
+.signup-form-group select:focus {
+  border-color: #1677ff;
+
+  box-shadow:
+    0 0 0 3px rgba(22, 119, 255, 0.10);
+}
+
+
+/* =========================================================
+   PROFESSIONAL DROPDOWN
+   ========================================================= */
+
+.signup-form-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  cursor: pointer;
+
+  padding-right: 42px;
+
+  background-color: #ffffff;
+
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+
+  background-repeat: no-repeat;
+
+  background-position:
+    right 14px center;
+
+  background-size: 16px 16px;
+}
+
+.signup-form-group select:hover {
+  border-color: #b9c3d0;
+
+  background-color: #fcfdff;
+}
+
+.signup-form-group select:focus {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231677ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+
+
+/* =========================================================
+   SELECT OPTIONS
+   ========================================================= */
+
+.signup-form-group select option {
+  padding: 10px;
+
+  background: #ffffff;
+
+  color: #1d2939;
+
+  font-family: inherit;
+
+  font-size: 14px;
+}
+
+.signup-form-group select option:first-child {
+  color: #98a2b3;
+}
+
+
+/* =========================================================
+   READONLY HOSPITAL
+   ========================================================= */
+
+.signup-form-group .readonly-input {
+  background: #f7f9fc;
+
+  color: #667085;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   PHONE FIELD
+   ========================================================= */
+
+.signup-input-with-icon {
+  width: 100%;
+  height: 47px;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  border: 1px solid #d9dee7;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.signup-input-with-icon:focus-within {
+  border-color: #1677ff;
+
+  box-shadow:
+    0 0 0 3px rgba(22, 119, 255, 0.10);
+}
+
+.signup-input-with-icon > span {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+
+  padding:
+    0
+    12px;
+
+  border-right: 1px solid #e4e8ee;
+
+  color: #667085;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  white-space: nowrap;
+}
+
+.signup-input-with-icon input {
+  flex: 1;
+
+  min-width: 0;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 0 13px;
+
+  border: none;
+
+  border-radius: 0;
+
+  box-shadow: none;
+}
+
+.signup-input-with-icon input:focus {
+  border: none;
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   REGISTER BUTTON
+   ========================================================= */
+
+.register-button {
+  width: 100%;
+  min-height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-top: 2px;
+
+  padding: 12px 20px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  background: #1677ff;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 6px 18px rgba(22, 119, 255, 0.22);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.register-button:hover {
+  background: #0869eb;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 9px 22px rgba(22, 119, 255, 0.28);
+}
+
+.register-button:active {
+  transform: translateY(0);
+}
+
+.register-button svg {
+  width: 18px;
+  height: 18px;
+
+  flex: 0 0 auto;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 2;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+}
+
+
+/* =========================================================
+   SIGNUP SECURITY
+   ========================================================= */
+
+.signup-security {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding:
+    5px
+    20px
+    20px;
+
+  color: #8a94a3;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+
+  text-align: center;
+}
+
+.signup-security svg {
+  width: 16px;
+  height: 16px;
+
+  flex: 0 0 auto;
+
+  fill: none;
+
+  stroke: #6f7d90;
+
+  stroke-width: 1.7;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes signupOverlayIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes signupModalIn {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(18px)
+      scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* =========================================================
+   LARGE TABLETS / SMALL LAPTOPS
+   1200px AND BELOW
+   ========================================================= */
+
+@media (max-width: 1200px) {
+
+  .login-page {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(400px, 0.75fr);
+  }
+
+  .visual-content {
+    padding:
+      60px
+      55px;
+  }
+
+  .login-panel {
+    padding:
+      50px
+      45px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+   900px AND BELOW
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .login-page {
+    min-height: 100dvh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: visible;
+  }
+
+
+  /* LEFT PANEL */
+
+  .visual-panel {
+    width: 100%;
+
+    min-height: auto;
+
+    padding:
+      50px
+      30px;
+  }
+
+  .visual-content {
+    width: min(100%, 700px);
+
+    padding: 0;
+
+    text-align: center;
+  }
+
+  .application-logo {
+    justify-content: center;
+
+    margin-bottom: 25px;
+  }
+
+  .visual-content h1 {
+    max-width: 700px;
+
+    margin: 0 auto;
+
+    font-size: clamp(32px, 5vw, 48px);
+  }
+
+  .visual-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .medical-line {
+    justify-content: center;
+  }
+
+  .visual-footer {
+    justify-content: center;
+  }
+
+
+  /* RIGHT PANEL */
+
+  .login-panel {
+    width: 100%;
+
+    min-height: auto;
+
+    padding:
+      55px
+      30px;
+
+    border-left: none;
+
+    border-top: 1px solid #edf0f4;
+  }
+
+  .login-container {
+    max-width: 520px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE / LARGE PHONES
+   600px AND BELOW
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .login-page {
+    width: 100%;
+
+    min-height: 100dvh;
+
+    display: block;
+
+    overflow-x: hidden;
+  }
+
+
+  /* LEFT PANEL */
+
+  .visual-panel {
+    width: 100%;
+
+    min-height: auto;
+
+    padding:
+      36px
+      20px
+      40px;
+  }
+
+  .visual-content {
+    width: 100%;
+  }
+
+  .application-logo {
+    margin-bottom: 22px;
+  }
+
+  .application-logo img {
+    width: 105px;
+  }
+
+  .visual-content h1 {
+    font-size: clamp(28px, 8vw, 38px);
+
+    line-height: 1.12;
+
+    letter-spacing: -0.04em;
+  }
+
+  .visual-content h1 span {
+    margin-top: 6px;
+  }
+
+  .visual-description {
+    margin-top: 17px;
+
+    font-size: 14px;
+  }
+
+  .medical-line {
+    margin-top: 24px;
+  }
+
+  .visual-footer {
+    margin-top: 27px;
+
+    font-size: 12px;
+  }
+
+
+  /* RIGHT PANEL */
+
+  .login-panel {
+    width: 100%;
+
+    min-height: auto;
+
+    padding:
+      35px
+      20px
+      45px;
+
+    overflow: visible;
+  }
+
+  .login-container {
+    width: 100%;
+
+    max-width: none;
+  }
+
+  .login-logo {
+    justify-content: center;
+
+    margin-bottom: 22px;
+  }
+
+  .login-logo img {
+    width: 105px;
+  }
+
+  .login-container h2 {
+    text-align: center;
+
+    font-size: 27px;
+  }
+
+  .login-subtitle {
+    text-align: center;
+
+    font-size: 13px;
+  }
+
+
+  /* LOGIN FORM */
+
+  .form-group {
+    margin-bottom: 17px;
+  }
+
+  .input-box {
+    height: 49px;
+  }
+
+  .login-options {
+    align-items: flex-start;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 20px;
+  }
+
+
+  /* SIGNUP */
+
+  .signup-section {
+    margin-top: 20px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   430px AND BELOW
+   ========================================================= */
+
+@media (max-width: 430px) {
+
+  .visual-panel {
+    padding:
+      30px
+      17px
+      34px;
+  }
+
+  .visual-content h1 {
+    font-size: 27px;
+  }
+
+  .visual-description {
+    font-size: 13px;
+  }
+
+  .visual-footer {
+    font-size: 11px;
+  }
+
+
+  .login-panel {
+    padding:
+      30px
+      17px
+      38px;
+  }
+
+  .login-container h2 {
+    font-size: 25px;
+  }
+
+  .login-subtitle {
+    font-size: 12px;
+  }
+
+  .form-group label {
+    font-size: 12px;
+  }
+
+  .input-box {
+    height: 47px;
+
+    border-radius: 10px;
+  }
+
+  .input-box input {
+    font-size: 13px;
+  }
+
+  .login-options {
+    gap: 10px;
+  }
+
+  .remember-me,
+  .login-options a {
+    font-size: 12px;
+  }
+
+  .login-button {
+    min-height: 48px;
+  }
+
+
+  /* MODAL */
+
+  .signup-overlay {
+    align-items: flex-start;
+
+    padding:
+      10px;
+  }
+
+  .signup-modal {
+    width: 100%;
+
+    max-height: calc(100dvh - 20px);
+
+    border-radius: 17px;
+  }
+
+  .signup-header {
+    padding:
+      19px
+      18px
+      17px;
+  }
+
+  .signup-header h2 {
+    font-size: 20px;
+  }
+
+  .signup-header p {
+    font-size: 12px;
+  }
+
+  .signup-icon {
+    width: 39px;
+    height: 39px;
+
+    margin-bottom: 10px;
+  }
+
+  .modal-close {
+    width: 32px;
+    height: 32px;
+
+    flex-basis: 32px;
+  }
+
+  .signup-form {
+    padding:
+      18px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+
+    gap: 0;
+  }
+
+  .signup-form-group {
+    margin-bottom: 15px;
+  }
+
+  .signup-form-group label {
+    font-size: 12px;
+  }
+
+  .signup-form-group input,
+  .signup-form-group select,
+  .signup-input-with-icon {
+    height: 46px;
+
+    font-size: 13px;
+  }
+
+  .signup-form-group select {
+    padding-right: 38px;
+
+    background-position:
+      right 12px center;
+  }
+
+  .register-button {
+    min-height: 47px;
+
+    font-size: 13px;
+  }
+
+  .signup-security {
+    font-size: 10px;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL DEVICES
+   360px AND BELOW
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+  .visual-panel {
+    padding:
+      27px
+      14px
+      30px;
+  }
+
+  .visual-content h1 {
+    font-size: 24px;
+  }
+
+  .application-logo img {
+    width: 90px;
+  }
+
+  .login-panel {
+    padding:
+      27px
+      14px
+      34px;
+  }
+
+  .login-logo img {
+    width: 90px;
+  }
+
+  .login-container h2 {
+    font-size: 23px;
+  }
+
+  .login-options {
+    display: block;
+  }
+
+  .remember-me {
+    margin-bottom: 10px;
+  }
+
+  .login-options a {
+    display: inline-block;
+  }
+
+  .signup-section {
+    font-size: 12px;
+  }
+
+  .signup-link {
+    font-size: 12px;
+  }
+
+  .signup-header {
+    gap: 10px;
+  }
+
+  .signup-header h2 {
+    font-size: 18px;
+  }
+
+}
+
+
+/* =========================================================
+   LANDSCAPE MOBILE
+   ========================================================= */
+
+@media (max-height: 600px) and (orientation: landscape) {
+
+  .visual-panel {
+    padding:
+      25px
+      20px;
+  }
+
+  .visual-content h1 {
+    font-size: 28px;
+  }
+
+  .visual-description {
+    margin-top: 10px;
+  }
+
+  .medical-line {
+    margin-top: 15px;
+  }
+
+  .visual-footer {
+    margin-top: 15px;
+  }
+
+  .login-panel {
+    padding:
+      30px
+      20px;
+  }
+
+  .signup-overlay {
+    align-items: flex-start;
+  }
+
+  .signup-modal {
+    max-height: calc(100dvh - 20px);
+  }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+button,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 3px solid rgba(22, 119, 255, 0.25);
+
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+  }
+
+}
+
+/* =========================================
+   PROFESSIONAL MESSAGE MODAL
+   ========================================= */
+
+.message-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(6px);
+
+  animation: messageOverlayIn 0.2s ease;
+}
+
+.message-modal {
+  width: min(430px, 100%);
+
+  background: #ffffff;
+  border-radius: 20px;
+
+  padding: 30px 28px 26px;
+
+  text-align: center;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.18),
+    0 8px 20px rgba(0, 0, 0, 0.08);
+
+  animation: messageModalIn 0.25s ease;
+}
+
+/* =========================================
+   ICON
+   ========================================= */
+
+.message-icon {
+  width: 68px;
+  height: 68px;
+
+  margin: 0 auto 18px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.message-success .message-icon {
+  background: #e9f9ef;
+  color: #16a34a;
+}
+
+.message-error .message-icon {
+  background: #fff0f0;
+  color: #dc2626;
+}
+
+.message-warning .message-icon {
+  background: #fff7df;
+  color: #d97706;
+}
+
+/* =========================================
+   CONTENT
+   ========================================= */
+
+.message-content h3 {
+  margin: 0 0 10px;
+
+  font-size: 21px;
+  font-weight: 700;
+
+  color: #172033;
+}
+
+.message-content p {
+  margin: 0 auto 24px;
+
+  max-width: 340px;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  color: #64748b;
+}
+
+/* =========================================
+   BUTTON
+   ========================================= */
+
+.message-close-btn {
+  width: 100%;
+
+  border: none;
+  border-radius: 10px;
+
+  padding: 12px 20px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.message-success .message-close-btn {
+  background: #16a34a;
+}
+
+.message-error .message-close-btn {
+  background: #dc2626;
+}
+
+.message-warning .message-close-btn {
+  background: #d97706;
+}
+
+.message-close-btn:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.message-close-btn:active {
+  transform: translateY(0);
+}
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+
+@keyframes messageOverlayIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes messageModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 480px) {
+
+  .message-modal-overlay {
+    padding: 16px;
+  }
+
+  .message-modal {
+    padding: 26px 20px 22px;
+    border-radius: 18px;
+  }
+
+  .message-icon {
+    width: 60px;
+    height: 60px;
+
+    font-size: 30px;
+  }
+
+  .message-content h3 {
+    font-size: 19px;
+  }
+
+  .message-content p {
+    font-size: 13px;
+  }
+}

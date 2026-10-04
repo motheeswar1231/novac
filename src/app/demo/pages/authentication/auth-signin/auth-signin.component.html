@@ -1,0 +1,787 @@
+<!-- PROFESSIONAL CONFIRMATION MODAL -->
+<div class="confirmation-overlay" *ngIf="showPopup">
+
+  <div class="confirmation-modal">
+
+    <!-- Header -->
+    <div class="modal-header">
+
+      <div class="header-icon">
+        <i class="feather icon-shield"></i>
+      </div>
+
+      <div class="header-content">
+        <h2>Professional Access Confirmation</h2>
+        <p>
+          Please confirm the following information before continuing.
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- Body -->
+    <div class="modal-body">
+
+      <div class="information-box">
+
+        <div class="info-icon">
+          <i class="feather icon-info"></i>
+        </div>
+
+        <div>
+          <h4>Confirmation of being a doctor or pharmacist</h4>
+
+          <p>
+            This application provides support by presenting basic
+            pharmacological information on the anticoagulation of patients
+            with direct oral anticoagulants (DOACs) and is aimed
+            <strong>exclusively at physicians and pharmacists.</strong>
+            The application does not replace the medical treatment decision
+            and is expressly not aimed at members of nursing professions,
+            patients and their relatives.
+          </p>
+        </div>
+
+      </div>
+
+
+      <!-- Confirmations -->
+      <div class="confirmation-list">
+
+        <!-- Terms -->
+        <label
+          class="confirmation-item"
+          [class.checked]="termsAccepted"
+        >
+
+          <input
+            type="checkbox"
+            [checked]="termsAccepted"
+            (change)="onTermsChange($event)"
+          />
+
+          <span class="custom-checkbox">
+            <i
+              class="feather icon-check"
+              *ngIf="termsAccepted"
+            ></i>
+          </span>
+
+          <span class="checkbox-text">
+            <span class="main-text">
+              I hereby confirm that I have read and accept the
+              <strong>terms and conditions.</strong>
+            </span>
+
+            <span class="required-text">
+              Required
+            </span>
+          </span>
+
+        </label>
+
+
+        <!-- Privacy -->
+        <label
+          class="confirmation-item"
+          [class.checked]="privacyAccepted"
+        >
+
+          <input
+            type="checkbox"
+            [checked]="privacyAccepted"
+            (change)="onPrivacyChange($event)"
+          />
+
+          <span class="custom-checkbox">
+            <i
+              class="feather icon-check"
+              *ngIf="privacyAccepted"
+            ></i>
+          </span>
+
+          <span class="checkbox-text">
+
+            <span class="main-text">
+              I hereby confirm that I have read and accept the
+              <strong>privacy policy.</strong>
+            </span>
+
+            <span class="required-text">
+              Required
+            </span>
+
+          </span>
+
+        </label>
+
+
+        <!-- Doctor / Pharmacist -->
+        <label
+          class="confirmation-item"
+          [class.checked]="doctorAccepted"
+        >
+
+          <input
+            type="checkbox"
+            [checked]="doctorAccepted"
+            (change)="onDoctorChange($event)"
+          />
+
+          <span class="custom-checkbox">
+            <i
+              class="feather icon-check"
+              *ngIf="doctorAccepted"
+            ></i>
+          </span>
+
+          <span class="checkbox-text">
+
+            <span class="main-text">
+              I hereby confirm that I am a
+              <strong>doctor or pharmacist.</strong>
+            </span>
+
+            <span class="required-text">
+              Required
+            </span>
+
+          </span>
+
+        </label>
+
+      </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <div class="modal-footer">
+
+      <div class="status-message">
+
+        <i
+          class="feather"
+          [class.icon-check-circle]="canAgree"
+          [class.icon-alert-circle]="!canAgree"
+        ></i>
+
+        <span *ngIf="!canAgree">
+          Please complete all required confirmations
+        </span>
+
+        <span *ngIf="canAgree">
+          All confirmations completed
+        </span>
+
+      </div>
+
+      <button
+        type="button"
+        class="agree-button"
+        [class.active]="canAgree"
+        [disabled]="!canAgree"
+        (click)="agree()"
+      >
+        <span>AGREE & CONTINUE</span>
+        <i class="feather icon-arrow-right"></i>
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="login-page">
+
+  <!-- LEFT SIDE -->
+  <section class="visual-panel">
+
+    <div class="visual-background-circle circle-one"></div>
+    <div class="visual-background-circle circle-two"></div>
+    <div class="visual-background-circle circle-three"></div>
+
+    <div class="visual-content">
+
+      <div class="application-logo">
+        <img
+          src="assets/logo-nova.png"
+          alt="NOACare Application Logo"
+        />
+      </div>
+
+      <h1>
+        Evidence Today
+        <span>for Safer Anticoagulation Tomorrow</span>
+      </h1>
+
+      <p class="visual-description">
+        Clinical Decision Support for NOAC Therapy
+      </p>
+
+      <div class="medical-line">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="visual-footer">
+        <span class="status-dot"></span>
+        Secure Clinical Decision Support
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- RIGHT SIDE -->
+  <section class="login-panel">
+
+    <div class="login-container">
+
+      <!-- LOGO -->
+      <div class="login-logo">
+        <img
+          src="assets/logo-nova.png"
+          alt="NOACare"
+        />
+      </div>
+
+      <h2>Welcome to NOACare</h2>
+
+      <p class="login-subtitle">
+        Sign in to access clinical decision support
+      </p>
+
+
+      <!-- LOGIN FORM -->
+      <form (ngSubmit)="login()">
+
+        <!-- HOSPITAL -->
+        <div class="form-group">
+
+          <label for="hospital">
+            Hospital
+          </label>
+
+          <div class="input-box hospital-box">
+
+            <span class="input-icon">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M3 21h18M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1"
+                />
+              </svg>
+            </span>
+
+            <input
+              id="hospital"
+              type="text"
+              value="PSG Hospitals"
+              readonly
+            />
+
+          </div>
+
+        </div>
+
+
+        <!-- USERNAME -->
+        <div class="form-group">
+
+          <label for="username">
+            User Name
+          </label>
+
+          <div class="input-box">
+
+            <span class="input-icon">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4"></circle>
+                <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
+              </svg>
+            </span>
+
+            <input
+              id="username"
+              type="text"
+              placeholder="Enter your user name"
+              [(ngModel)]="loginData.username"
+              name="username"
+            />
+
+          </div>
+
+        </div>
+
+
+        <!-- PASSWORD -->
+        <div class="form-group">
+
+          <label for="password">
+            Password
+          </label>
+
+          <div class="input-box">
+
+            <span class="input-icon">
+              <svg viewBox="0 0 24 24">
+                <rect
+                  x="4"
+                  y="10"
+                  width="16"
+                  height="11"
+                  rx="2"
+                ></rect>
+
+                <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+              </svg>
+            </span>
+
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="Enter your password"
+              [(ngModel)]="loginData.password"
+              name="password"
+            />
+
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="togglePassword()"
+              aria-label="Show password"
+            >
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z">
+                </path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- OPTIONS -->
+        <div class="login-options">
+
+          <label class="remember-me">
+            <input type="checkbox">
+            <span></span>
+            Remember me
+          </label>
+
+          <a href="javascript:void(0)">
+            Forgot Password?
+          </a>
+
+        </div>
+
+
+        <!-- LOGIN BUTTON -->
+        <button
+          type="submit"
+          class="login-button"
+        >
+          <span>Login</span>
+
+          <span class="button-arrow">
+            <svg viewBox="0 0 24 24">
+              <path d="M5 12h14M13 6l6 6-6 6"></path>
+            </svg>
+          </span>
+        </button>
+
+      </form>
+
+
+      <!-- SIGNUP OPTION -->
+      <div class="signup-section">
+
+        <span>New doctor?</span>
+
+        <button
+          type="button"
+          class="signup-link"
+          (click)="openSignupPopup()"
+        >
+          Create an account
+        </button>
+
+      </div>
+
+
+      <!-- SECURITY -->
+      <div class="security-note">
+
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 3 5 6v5c0 4.5 3 8.2 7 10 4-1.8 7-5.5 7-10V6l-7-3z">
+          </path>
+
+          <path d="m9 12 2 2 4-4"></path>
+        </svg>
+
+        <span>
+          Your clinical information is protected
+        </span>
+
+      </div>
+
+
+      <div class="application-version">
+        NOACare v1.0
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<!-- =====================================================
+     SIGNUP POPUP
+===================================================== -->
+
+<div
+  class="signup-overlay"
+  *ngIf="showSignupPopup"
+  (click)="closeSignupPopup()"
+>
+
+  <div
+    class="signup-modal"
+    (click)="$event.stopPropagation()"
+  >
+
+    <!-- MODAL HEADER -->
+    <div class="signup-header">
+
+      <div>
+
+        <div class="signup-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="4"></circle>
+            <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
+            <path d="M19 11v6M16 14h6"></path>
+          </svg>
+        </div>
+
+        <h2>Doctor Registration</h2>
+
+        <p>
+          Create your NOACare clinical account
+        </p>
+
+      </div>
+
+      <button
+        type="button"
+        class="modal-close"
+        (click)="closeSignupPopup()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <!-- SIGNUP FORM -->
+    <form
+      class="signup-form"
+      (ngSubmit)="registerDoctor()"
+    >
+
+      <!-- FIRST + LAST NAME -->
+      <div class="form-row">
+
+        <div class="signup-form-group">
+
+          <label>
+            First Name
+          </label>
+
+          <input
+            type="text"
+            placeholder="Enter first name"
+            [(ngModel)]="doctor.firstName"
+            name="firstName"
+            required
+          />
+
+        </div>
+
+
+        <div class="signup-form-group">
+
+          <label>
+            Last Name
+          </label>
+
+          <input
+            type="text"
+            placeholder="Enter last name"
+            [(ngModel)]="doctor.lastName"
+            name="lastName"
+            required
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- PHONE -->
+      <div class="signup-form-group">
+
+        <label>
+          Phone Number
+        </label>
+
+        <div class="signup-input-with-icon">
+
+          <span>+91</span>
+
+          <input
+            type="tel"
+            placeholder="Enter phone number"
+            maxlength="10"
+            [(ngModel)]="doctor.phone"
+            name="phone"
+            required
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- HOSPITAL -->
+      <div class="signup-form-group">
+
+        <label>
+          Hospital
+        </label>
+
+        <input
+          type="text"
+          value="PSG Hospitals"
+          readonly
+          class="readonly-input"
+        />
+
+      </div>
+
+
+      <!-- DEPARTMENT -->
+      <div class="signup-form-group">
+
+        <label>
+          Department
+        </label>
+
+        <select
+          [(ngModel)]="doctor.department"
+          name="department"
+          required
+        >
+
+          <option value="">
+            Select Department
+          </option>
+
+          <option value="ENT Department">
+            ENT Department
+          </option>
+
+          <option value="Cardiology Department">
+            Cardiology Department
+          </option>
+
+          <option value="Neurology Department">
+            Neurology Department
+          </option>
+
+          <option value="General Medicine">
+            General Medicine
+          </option>
+
+          <option value="General Surgery">
+            General Surgery
+          </option>
+
+          <option value="Orthopaedics Department">
+            Orthopaedics Department
+          </option>
+
+          <option value="Paediatrics Department">
+            Paediatrics Department
+          </option>
+
+          <option value="Radiology Department">
+            Radiology Department
+          </option>
+
+          <option value="Emergency Department">
+            Emergency Department
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- USERNAME -->
+      <div class="signup-form-group">
+
+        <label>
+          Username
+        </label>
+
+        <input
+          type="text"
+          placeholder="Create username"
+          [(ngModel)]="doctor.username"
+          name="signupUsername"
+          required
+        />
+
+      </div>
+
+
+      <!-- PASSWORD -->
+      <div class="form-row">
+
+        <div class="signup-form-group">
+
+          <label>
+            Password
+          </label>
+
+          <input
+            type="password"
+            placeholder="Create password"
+            [(ngModel)]="doctor.password"
+            name="signupPassword"
+            required
+          />
+
+        </div>
+
+
+        <div class="signup-form-group">
+
+          <label>
+            Confirm Password
+          </label>
+
+          <input
+            type="password"
+            placeholder="Confirm password"
+            [(ngModel)]="doctor.confirmPassword"
+            name="confirmPassword"
+            required
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- REGISTER BUTTON -->
+      <button
+        type="submit"
+        class="register-button"
+      >
+
+        <span>Register Doctor</span>
+
+        <svg viewBox="0 0 24 24">
+          <path d="M5 12h14M13 6l6 6-6 6"></path>
+        </svg>
+
+      </button>
+
+    </form>
+
+
+    <div class="signup-security">
+
+      <svg viewBox="0 0 24 24">
+        <path
+          d="M12 3 5 6v5c0 4.5 3 8.2 7 10 4-1.8 7-5.5 7-10V6l-7-3z">
+        </path>
+        <path d="m9 12 2 2 4-4"></path>
+      </svg>
+
+      <span>
+        Doctor credentials are securely managed
+      </span>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Message Modal -->
+<div
+  class="message-modal-overlay"
+  *ngIf="showMessageModal"
+  (click)="closeMessage()"
+>
+  <div
+    class="message-modal"
+    [ngClass]="'message-' + messageType"
+    (click)="$event.stopPropagation()"
+  >
+
+    <!-- Icon -->
+    <div class="message-icon">
+
+      <span *ngIf="messageType === 'success'">
+        ✓
+      </span>
+
+      <span *ngIf="messageType === 'error'">
+        ×
+      </span>
+
+      <span *ngIf="messageType === 'warning'">
+        !
+      </span>
+
+    </div>
+
+    <!-- Content -->
+    <div class="message-content">
+
+      <h3>
+        {{ messageTitle }}
+      </h3>
+
+      <p>
+        {{ messageText }}
+      </p>
+
+    </div>
+
+    <!-- Button -->
+    <button
+      type="button"
+      class="message-close-btn"
+      (click)="closeMessage()"
+    >
+      OK
+    </button>
+
+  </div>
+</div>
