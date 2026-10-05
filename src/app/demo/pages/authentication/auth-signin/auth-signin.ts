@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthSignin {
 
-private apiUrl = 'http://localhost:5000/api/auth';
+private apiUrl = 'https://nova-backend-mxvw.vercel.app/api/auth';
 
   constructor(private http: HttpClient) {}
 
