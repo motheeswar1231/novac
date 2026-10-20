@@ -259,4 +259,18 @@ registerDoctor(): void {
     }
   });
 }
+
+currentStep = 1;
+
+nextStep(): void {
+  if (this.currentStep < 5) {
+    this.currentStep++;
+  }
+}
+
+previousStep(): void {
+  if (this.currentStep > 1) {
+    this.currentStep--;
+  }
+}
 }

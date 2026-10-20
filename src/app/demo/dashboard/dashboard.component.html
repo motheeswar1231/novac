@@ -1,815 +1,255 @@
-<div class="dashboard-page">
 
-  <!-- =========================
-       SIDEBAR
-       ========================= -->
-  <aside class="sidebar">
-<div class="brand-logo">
-  <img
-    src="assets/logo-nova.png"
-    alt="NOVA Healthcare Logo"
-  />
-</div>
+<div class="dashboard">
 
-<div class="brand-text">
-  <strong>NOVA </strong>
-  <span>Healthcare</span>
-</div>
-    
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar" [class.open]="mobileMenuOpen">
 
-
-    <!-- Navigation -->
-    <nav class="sidebar-nav">
-
-      <div class="nav-section-title">
-        MAIN
+    <div class="brand">
+      <img src="assets/logo-nova.png" alt="NOACare Logo" />
+      <div>
+        <h2>NOACare</h2>
+        <p>Clinical Decision Support</p>
       </div>
+      <button class="close-menu" (click)="mobileMenuOpen = false">
+        ×
+      </button>
+    </div>
 
-      <a
-        class="nav-item active"
-        href="javascript:void(0)"
+    <nav class="sidebar-menu">
+      <button
+        *ngFor="let item of menuItems"
+        type="button"
+        class="menu-item"
+        [class.active]="activeItem === item.label"
+        (click)="selectMenu(item)"
       >
-        <span class="nav-icon">⌂</span>
-        <span>Dashboard</span>
-      </a>
-
-      <a
-        class="nav-item"
-        href="javascript:void(0)"
-      >
-        <span class="nav-icon">♙</span>
-        <span>Patients</span>
-      </a>
-
-      <a
-        class="nav-item"
-        href="javascript:void(0)"
-      >
-        <span class="nav-icon">＋</span>
-        <span>Add Patient</span>
-      </a>
-
-      <div class="nav-section-title">
-        MANAGEMENT
-      </div>
-
-      <a
-        class="nav-item"
-        href="javascript:void(0)"
-      >
-        <span class="nav-icon">▤</span>
-        <span>Patient Records</span>
-      </a>
-
-      <a
-        class="nav-item"
-        href="javascript:void(0)"
-      >
-        <span class="nav-icon">▥</span>
-        <span>Reports</span>
-      </a>
-
-      <a
-        class="nav-item"
-        href="javascript:void(0)"
-      >
-        <span class="nav-icon">⚙</span>
-        <span>Settings</span>
-      </a>
-
+        <span class="menu-icon">{{ item.icon }}</span>
+        <span>{{ item.label }}</span>
+      </button>
     </nav>
 
-
-    <!-- Sidebar Bottom -->
-    <div class="sidebar-bottom">
-
-      <div class="support-card">
-
-        <div class="support-icon">
-          ?
-        </div>
-
+    <div class="sidebar-footer">
+      <div class="support-box">
+        <span class="support-icon">?</span>
         <div>
-          <strong>Need Help?</strong>
-          <span>Contact support</span>
+          <strong>Need assistance?</strong>
+          <p>Contact your administrator</p>
         </div>
-
       </div>
 
-     <button
-  class="logout-sidebar"
-  type="button"
-  (click)="logout()"
->
-  <span>⇥</span>
-  Logout
-</button>
+      <button class="logout-button" (click)="logout()">
+        ↪ Sign out
+      </button>
 
+      <small>NOACare · Version 1.0</small>
     </div>
 
   </aside>
 
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
 
-  <!-- =========================
-       MAIN CONTENT
-       ========================= -->
-  <main class="main-content">
+    <!-- TOP HEADER -->
+    <header class="topbar">
 
-    <!-- Top Header -->
-    <header class="top-header">
-
-      <div class="mobile-menu">
-        ☰
-      </div>
-
-      <div class="header-left">
-
-        <div class="breadcrumb">
-          Dashboard
-        </div>
-
-        <h1>
-          Welcome back
-        </h1>
-
-        <p>
-          Manage your patients and medical records efficiently.
-        </p>
-
-      </div>
-
-
-      <div class="header-right">
-
-        <!-- Search -->
-        <div class="header-search">
-
-          <span class="search-icon">
-            ⌕
-          </span>
-
-          <input
-            type="text"
-            placeholder="Search patients..."
-          />
-
-        </div>
-
-
-        <!-- Notification -->
+      <div class="topbar-left">
         <button
-          class="header-button"
+          class="hamburger"
           type="button"
+          (click)="mobileMenuOpen = !mobileMenuOpen"
+          aria-label="Toggle navigation"
         >
-          ♢
+          ☰
+        </button>
+
+        <span class="breadcrumb">
+          Workspace / <strong>{{ activeItem }}</strong>
+        </span>
+      </div>
+
+      <div class="topbar-right">
+
+        <button
+          class="notification-button"
+          type="button"
+          (click)="showNotifications = !showNotifications"
+          aria-label="Notifications"
+        >
+          ♧
           <span class="notification-dot"></span>
         </button>
 
+        <div class="header-divider"></div>
 
-        <!-- User -->
-        <div class="user-profile">
+        <button
+          class="profile-button"
+          type="button"
+          (click)="showProfileMenu = !showProfileMenu"
+        >
+          <span class="profile-avatar">👤</span>
 
-          <div class="user-avatar">
-            {{ username ? username.charAt(0).toUpperCase() : 'U' }}
-          </div>
-
-          <div class="user-details">
-
-            <strong>
-              {{ username || 'Doctor' }}
-            </strong>
-
-            <span>
-              Doctor
-            </span>
-
-          </div>
-
-          <span class="profile-arrow">
-            ▾
+          <span class="profile-details">
+            <strong>{{ username }}</strong>
+            <small>{{ department }}</small>
           </span>
 
+          <span class="dropdown-arrow">⌄</span>
+        </button>
+
+        <div class="header-popup" *ngIf="showNotifications">
+          <strong>Notifications</strong>
+          <p>You are all caught up.</p>
+        </div>
+
+        <div class="header-popup profile-popup" *ngIf="showProfileMenu">
+          <strong>{{ username }}</strong>
+          <p>{{ department }}</p>
+          <button type="button" (click)="logout()">Sign out</button>
         </div>
 
       </div>
-
     </header>
 
+    <!-- DASHBOARD BODY -->
+    <main class="dashboard-body">
 
-    <!-- =========================
-         CONTENT
-         ========================= -->
-    <section class="dashboard-content">
+      <!-- HERO BANNER -->
+      <section class="hero-banner">
 
+        <div class="hero-text">
+          <span class="eyebrow">CLINICAL WORKSPACE</span>
 
-      <!-- Statistics -->
-      <div class="stats-grid">
+          <h1>
+            Better decisions.<br />
+            <span>Safer anticoagulation.</span>
+          </h1>
 
-        <div class="stat-card">
+          <p>
+            Your clinical workspace for NOAC therapy assessment,
+            patient management, and evidence-informed care.
+          </p>
 
-          <div class="stat-card-top">
-
-            <div class="stat-icon patients-icon">
-              ♙
-            </div>
-
-            <span class="stat-growth positive">
-              +12.5%
-            </span>
-
-          </div>
-
-          <span class="stat-label">
-            Total Patients
-          </span>
-
-          <strong class="stat-value">
-            1,248
-          </strong>
-
-          <span class="stat-description">
-            Compared to last month
-          </span>
-
-        </div>
-
-
-        <div class="stat-card">
-
-          <div class="stat-card-top">
-
-            <div class="stat-icon today-icon">
-              ◷
-            </div>
-
-            <span class="stat-growth positive">
-              +8.2%
-            </span>
-
-          </div>
-
-          <span class="stat-label">
-            Today's Patients
-          </span>
-
-          <strong class="stat-value">
-            36
-          </strong>
-
-          <span class="stat-description">
-            Patients registered today
-          </span>
-
-        </div>
-
-
-        <div class="stat-card">
-
-          <div class="stat-card-top">
-
-            <div class="stat-icon pending-icon">
-              ◌
-            </div>
-
-            <span class="stat-growth neutral">
-              Pending
-            </span>
-
-          </div>
-
-          <span class="stat-label">
-            Pending Records
-          </span>
-
-          <strong class="stat-value">
-            18
-          </strong>
-
-          <span class="stat-description">
-            Require your attention
-          </span>
-
-        </div>
-
-
-        <div class="stat-card">
-
-          <div class="stat-card-top">
-
-            <div class="stat-icon completed-icon">
-              ✓
-            </div>
-
-            <span class="stat-growth positive">
-              +5.4%
-            </span>
-
-          </div>
-
-          <span class="stat-label">
-            Completed Records
-          </span>
-
-          <strong class="stat-value">
-            1,192
-          </strong>
-
-          <span class="stat-description">
-            Successfully completed
-          </span>
-
-        </div>
-
-      </div>
-
-
-      <!-- =========================
-           MAIN GRID
-           ========================= -->
-      <div class="dashboard-grid">
-
-
-        <!-- Create Patient -->
-        <section class="patient-form-card">
-
-          <div class="card-header">
-
-            <div>
-              <span class="card-eyebrow">
-                PATIENT MANAGEMENT
-              </span>
-
-              <h2>
-                Create Patient Record
-              </h2>
-
-              <p>
-                Enter the patient's information to create a new medical record.
-              </p>
-            </div>
-
-            <div class="card-header-icon">
-              ＋
-            </div>
-
-          </div>
-
-
-          <form class="patient-form">
-
-            <!-- Personal Information -->
-            <div class="form-section">
-
-              <div class="form-section-title">
-                <span class="section-number">01</span>
-
-                <div>
-                  <h3>Personal Information</h3>
-                  <p>Basic patient details</p>
-                </div>
-              </div>
-
-
-              <div class="form-row">
-
-                <div class="form-group">
-
-                  <label>
-                    First Name
-                    <span>*</span>
-                  </label>
-
-                  <input
-                    type="text"
-                    placeholder="Enter first name"
-                  />
-
-                </div>
-
-
-                <div class="form-group">
-
-                  <label>
-                    Last Name
-                    <span>*</span>
-                  </label>
-
-                  <input
-                    type="text"
-                    placeholder="Enter last name"
-                  />
-
-                </div>
-
-              </div>
-
-
-              <div class="form-row">
-
-                <div class="form-group">
-
-                  <label>
-                    Date of Birth
-                    <span>*</span>
-                  </label>
-
-                  <input
-                    type="date"
-                  />
-
-                </div>
-
-
-                <div class="form-group">
-
-                  <label>
-                    Gender
-                    <span>*</span>
-                  </label>
-
-                  <select>
-                    <option value="">
-                      Select gender
-                    </option>
-
-                    <option>
-                      Male
-                    </option>
-
-                    <option>
-                      Female
-                    </option>
-
-                    <option>
-                      Other
-                    </option>
-                  </select>
-
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <!-- Contact Information -->
-            <div class="form-section">
-
-              <div class="form-section-title">
-
-                <span class="section-number">
-                  02
-                </span>
-
-                <div>
-                  <h3>Contact Information</h3>
-                  <p>Patient contact details</p>
-                </div>
-
-              </div>
-
-
-              <div class="form-row">
-
-                <div class="form-group">
-
-                  <label>
-                    Phone Number
-                    <span>*</span>
-                  </label>
-
-                  <input
-                    type="tel"
-                    placeholder="+91 XXXXX XXXXX"
-                  />
-
-                </div>
-
-
-                <div class="form-group">
-
-                  <label>
-                    Email Address
-                  </label>
-
-                  <input
-                    type="email"
-                    placeholder="patient@email.com"
-                  />
-
-                </div>
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label>
-                  Address
-                  <span>*</span>
-                </label>
-
-                <textarea
-                  rows="3"
-                  placeholder="Enter patient's complete address"
-                ></textarea>
-
-              </div>
-
-            </div>
-
-
-            <!-- Medical Information -->
-            <div class="form-section">
-
-              <div class="form-section-title">
-
-                <span class="section-number">
-                  03
-                </span>
-
-                <div>
-                  <h3>Medical Information</h3>
-                  <p>Patient medical details</p>
-                </div>
-
-              </div>
-
-
-              <div class="form-row">
-
-                <div class="form-group">
-
-                  <label>
-                    Blood Group
-                  </label>
-
-                  <select>
-
-                    <option value="">
-                      Select blood group
-                    </option>
-
-                    <option>A+</option>
-                    <option>A-</option>
-                    <option>B+</option>
-                    <option>B-</option>
-                    <option>AB+</option>
-                    <option>AB-</option>
-                    <option>O+</option>
-                    <option>O-</option>
-
-                  </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                  <label>
-                    Department
-                    <span>*</span>
-                  </label>
-
-                  <select>
-
-                    <option value="">
-                      Select department
-                    </option>
-
-                    <option>
-                      Cardiology
-                    </option>
-
-                    <option>
-                      Neurology
-                    </option>
-
-                    <option>
-                      Orthopedics
-                    </option>
-
-                    <option>
-                      Pediatrics
-                    </option>
-
-                    <option>
-                      General Medicine
-                    </option>
-
-                  </select>
-
-                </div>
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label>
-                  Medical History
-                </label>
-
-                <textarea
-                  rows="4"
-                  placeholder="Enter relevant medical history, allergies, previous conditions..."
-                ></textarea>
-
-              </div>
-
-            </div>
-
-
-            <!-- Form Footer -->
-            <div class="form-footer">
-
-              <button
-                type="button"
-                class="secondary-button"
-              >
-                Clear
-              </button>
-
-              <button
-                type="submit"
-                class="primary-button"
-              >
-                <span>＋</span>
-                Create Patient Record
-              </button>
-
-            </div>
-
-          </form>
-
-        </section>
-
-
-        <!-- =========================
-             RECENT PATIENTS
-             ========================= -->
-        <section class="recent-patients-card">
-
-          <div class="card-header">
-
-            <div>
-              <span class="card-eyebrow">
-                PATIENT DATABASE
-              </span>
-
-              <h2>
-                Recent Patients
-              </h2>
-
-              <p>
-                Recently added patient records
-              </p>
-            </div>
-
+          <!-- <div class="hero-actions">
             <button
-              class="view-all-button"
+              class="primary-button"
               type="button"
+              (click)="selectCard('New Patient')"
             >
-              View All
+              + Add New Patient
             </button>
 
+            <button
+              class="secondary-button"
+              type="button"
+              (click)="selectCard('NOAC Assessment')"
+            >
+              Start Assessment →
+            </button>
+          </div> -->
+
+          <div class="hero-trust">
+            <span>✓ Evidence Based</span>
+            <i></i>
+            <span>Patient Centred</span>
+            <i></i>
+            <span>Safer Anticoagulation</span>
+          </div>
+        </div>
+
+        <!-- Medical illustration -->
+        <div class="hero-illustration">
+          <div class="medical-circle">
+            <span class="medical-heart">♥</span>
+            <span class="medical-pulse">⌁</span>
           </div>
 
+          <span class="floating-capsule">◉</span>
+          <span class="floating-drop">♥</span>
+        </div>
 
-          <div class="patient-list">
+      </section>
 
-            <div class="patient-row">
+      <!-- QUICK ACCESS TITLE -->
+      <section class="section-heading">
+        <div>
+          <span class="section-label">YOUR WORKSPACE</span>
+          <h2>Quick access</h2>
+          <p>Choose a tool to continue your work.</p>
+        </div>
 
-              <div class="patient-avatar">
-                AR
-              </div>
+        <span class="workspace-status">
+          <i></i> Clinical dashboard
+        </span>
+      </section>
 
-              <div class="patient-info">
+      <!-- FOUR DASHBOARD CARDS -->
+      <section class="quick-cards">
 
-                <strong>
-                  Arun Raj
-                </strong>
+        <button
+          type="button"
+          class="quick-card patient-card"
+          (click)="selectCard('New Patient')"
+        >
+          <span class="card-icon">♙+</span>
+          <h3>New Patient</h3>
+          <p>Enter patient details and start a NOAC assessment.</p>
+          <span class="card-arrow">→</span>
+        </button>
 
-                <span>
-                  #PT-10248 · 32 years
-                </span>
+        <button
+          type="button"
+          class="quick-card list-card"
+          (click)="selectCard('Patient List')"
+        >
+          <span class="card-icon">▤</span>
+          <h3>Patient List</h3>
+          <p>View and manage your registered patients.</p>
+          <span class="card-arrow">→</span>
+        </button>
 
-              </div>
+        <button
+          type="button"
+          class="quick-card assessment-card"
+          (click)="selectCard('NOAC Assessment')"
+        >
+          <span class="card-icon">💊</span>
+          <h3>NOAC Assessment</h3>
+          <p>Evaluate therapy selection, dosage, and monitoring.</p>
+          <span class="card-arrow">→</span>
+        </button>
 
-              <span class="status completed">
-                Completed
-              </span>
+        <button
+          type="button"
+          class="quick-card safety-card"
+          (click)="selectCard('Drug Interactions')"
+        >
+          <span class="card-icon">✓</span>
+          <h3>Safety Tools</h3>
+          <p>Drug interactions, bleeding risk, and safety alerts.</p>
+          <span class="card-arrow">→</span>
+        </button>
 
-            </div>
-
-
-            <div class="patient-row">
-
-              <div class="patient-avatar">
-                PS
-              </div>
-
-              <div class="patient-info">
-
-                <strong>
-                  Priya Sharma
-                </strong>
-
-                <span>
-                  #PT-10247 · 28 years
-                </span>
-
-              </div>
-
-              <span class="status pending">
-                Pending
-              </span>
-
-            </div>
-
-
-            <div class="patient-row">
-
-              <div class="patient-avatar">
-                VK
-              </div>
-
-              <div class="patient-info">
-
-                <strong>
-                  Vikram Kumar
-                </strong>
-
-                <span>
-                  #PT-10246 · 45 years
-                </span>
-
-              </div>
-
-              <span class="status completed">
-                Completed
-              </span>
-
-            </div>
+      </section>
 
 
-            <div class="patient-row">
+      <!-- FOOTER -->
+      <footer class="dashboard-footer">
+        <span class="hospital-name">✚ PSG Hospitals, Coimbatore</span>
+        <div class="footer-line"></div>
+        <span>Secure clinical workspace</span>
+        <span>NOACare v1.0</span>
+      </footer>
 
-              <div class="patient-avatar">
-                SM
-              </div>
+    </main>
+  </div>
 
-              <div class="patient-info">
-
-                <strong>
-                  Sneha Menon
-                </strong>
-
-                <span>
-                  #PT-10245 · 36 years
-                </span>
-
-              </div>
-
-              <span class="status pending">
-                Pending
-              </span>
-
-            </div>
-
-
-            <div class="patient-row">
-
-              <div class="patient-avatar">
-                RJ
-              </div>
-
-              <div class="patient-info">
-
-                <strong>
-                  Rahul Joseph
-                </strong>
-
-                <span>
-                  #PT-10244 · 51 years
-                </span>
-
-              </div>
-
-              <span class="status completed">
-                Completed
-              </span>
-
-            </div>
-
-          </div>
-
-        </section>
-
-      </div>
-
-    </section>
-
-  </main>
+  <!-- MOBILE SIDEBAR OVERLAY -->
+  <button
+    *ngIf="mobileMenuOpen"
+    class="mobile-overlay"
+    type="button"
+    aria-label="Close navigation"
+    (click)="mobileMenuOpen = false"
+  ></button>
 
 </div>
