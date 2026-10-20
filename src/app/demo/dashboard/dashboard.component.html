@@ -1,8 +1,7 @@
-
+<!-- 
 <div class="dashboard">
 
-  <!-- LEFT SIDEBAR -->
-  <aside class="sidebar" [class.open]="mobileMenuOpen">
+    <aside class="sidebar" [class.open]="mobileMenuOpen">
 
     <div class="brand">
       <img src="assets/logo-nova.png" alt="NOACare Logo" />
@@ -46,10 +45,10 @@
 
   </aside>
 
-  <!-- MAIN CONTENT -->
+  MAIN CONTENT
   <div class="main-content">
 
-    <!-- TOP HEADER -->
+    TOP HEADER
     <header class="topbar">
 
       <div class="topbar-left">
@@ -110,10 +109,10 @@
       </div>
     </header>
 
-    <!-- DASHBOARD BODY -->
+    DASHBOARD BODY
     <main class="dashboard-body">
 
-      <!-- HERO BANNER -->
+      HERO BANNER
       <section class="hero-banner">
 
         <div class="hero-text">
@@ -129,23 +128,7 @@
             patient management, and evidence-informed care.
           </p>
 
-          <!-- <div class="hero-actions">
-            <button
-              class="primary-button"
-              type="button"
-              (click)="selectCard('New Patient')"
-            >
-              + Add New Patient
-            </button>
-
-            <button
-              class="secondary-button"
-              type="button"
-              (click)="selectCard('NOAC Assessment')"
-            >
-              Start Assessment →
-            </button>
-          </div> -->
+      
 
           <div class="hero-trust">
             <span>✓ Evidence Based</span>
@@ -156,7 +139,7 @@
           </div>
         </div>
 
-        <!-- Medical illustration -->
+        Medical illustration
         <div class="hero-illustration">
           <div class="medical-circle">
             <span class="medical-heart">♥</span>
@@ -169,7 +152,7 @@
 
       </section>
 
-      <!-- QUICK ACCESS TITLE -->
+      QUICK ACCESS TITLE
       <section class="section-heading">
         <div>
           <span class="section-label">YOUR WORKSPACE</span>
@@ -182,7 +165,7 @@
         </span>
       </section>
 
-      <!-- FOUR DASHBOARD CARDS -->
+      FOUR DASHBOARD CARDS
       <section class="quick-cards">
 
         <button
@@ -232,7 +215,7 @@
       </section>
 
 
-      <!-- FOOTER -->
+      FOOTER
       <footer class="dashboard-footer">
         <span class="hospital-name">✚ PSG Hospitals, Coimbatore</span>
         <div class="footer-line"></div>
@@ -243,7 +226,7 @@
     </main>
   </div>
 
-  <!-- MOBILE SIDEBAR OVERLAY -->
+  MOBILE SIDEBAR OVERLAY
   <button
     *ngIf="mobileMenuOpen"
     class="mobile-overlay"
@@ -252,4 +235,542 @@
     (click)="mobileMenuOpen = false"
   ></button>
 
+</div> -->
+
+<div class="dashboard">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" [class.open]="mobileMenuOpen">
+    <div class="brand">
+      <img src="assets/logo-nova.png" alt="NOACare Logo" />
+      <div>
+        <h2>NOACare</h2>
+        <p>Clinical Decision Support</p>
+      </div>
+      <button class="close-menu" (click)="mobileMenuOpen = false">×</button>
+    </div>
+
+    <nav class="sidebar-menu">
+      <button *ngFor="let item of menuItems"
+        type="button" class="menu-item"
+        [class.active]="activeItem === item.label"
+        (click)="selectMenu(item)">
+        <span class="menu-icon">{{ item.icon }}</span>
+        <span>{{ item.label }}</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="support-box">
+        <span class="support-icon">?</span>
+        <div>
+          <strong>Need assistance?</strong>
+          <p>Contact your administrator</p>
+        </div>
+      </div>
+      <button class="logout-button" (click)="logout()">↪ Sign out</button>
+      <small>NOACare · Version 1.0</small>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="hamburger" (click)="mobileMenuOpen = !mobileMenuOpen"
+          aria-label="Toggle navigation">☰</button>
+        <span class="breadcrumb">
+          Workspace / <strong>{{ activeItem }}</strong>
+        </span>
+      </div>
+
+      <div class="topbar-right">
+        <button class="notification-button"
+          (click)="showNotifications = !showNotifications"
+          aria-label="Notifications">♧
+          <span class="notification-dot"></span>
+        </button>
+
+        <div class="header-divider"></div>
+
+        <button class="profile-button"
+          (click)="showProfileMenu = !showProfileMenu">
+          <span class="profile-avatar">👤</span>
+          <span class="profile-details">
+            <strong>{{ username }}</strong>
+            <small>{{ department }}</small>
+          </span>
+          <span class="dropdown-arrow">⌄</span>
+        </button>
+
+        <div class="header-popup" *ngIf="showNotifications">
+          <strong>Notifications</strong>
+          <p>You are all caught up.</p>
+        </div>
+
+        <div class="header-popup profile-popup" *ngIf="showProfileMenu">
+          <strong>{{ username }}</strong>
+          <p>{{ department }}</p>
+          <button (click)="logout()">Sign out</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-body">
+
+      <!-- DASHBOARD HOME -->
+      <ng-container *ngIf="!showPatientForm">
+        <section class="hero-banner">
+          <div class="hero-text">
+            <span class="eyebrow">CLINICAL WORKSPACE</span>
+            <h1>Better decisions.<br />
+              <span>Safer anticoagulation.</span>
+            </h1>
+            <p>
+              Your clinical workspace for NOAC therapy assessment,
+              patient management, and evidence-informed care.
+            </p>
+            <div class="hero-trust">
+              <span>✓ Evidence Based</span><i></i>
+              <span>Patient Centred</span><i></i>
+              <span>Safer Anticoagulation</span>
+            </div>
+          </div>
+
+          <div class="hero-illustration">
+            <div class="medical-circle">
+              <span class="medical-heart">♥</span>
+              <span class="medical-pulse">⌁</span>
+            </div>
+            <span class="floating-capsule">◉</span>
+            <span class="floating-drop">♥</span>
+          </div>
+        </section>
+
+        <section class="section-heading">
+          <div>
+            <span class="section-label">YOUR WORKSPACE</span>
+            <h2>Quick access</h2>
+            <p>Choose a tool to continue your work.</p>
+          </div>
+          <span class="workspace-status"><i></i> Clinical dashboard</span>
+        </section>
+
+        <section class="quick-cards">
+          <button class="quick-card patient-card"
+            (click)="selectCard('New Patient')">
+            <span class="card-icon">♙+</span>
+            <h3>New Patient</h3>
+            <p>Enter patient details and start a NOAC assessment.</p>
+            <span class="card-arrow">→</span>
+          </button>
+
+          <button class="quick-card list-card"
+            (click)="selectCard('Patient List')">
+            <span class="card-icon">▤</span>
+            <h3>Patient List</h3>
+            <p>View and manage your registered patients.</p>
+            <span class="card-arrow">→</span>
+          </button>
+
+          <button class="quick-card assessment-card"
+            (click)="selectCard('NOAC Assessment')">
+            <span class="card-icon">💊</span>
+            <h3>NOAC Assessment</h3>
+            <p>Evaluate therapy selection, dosage, and monitoring.</p>
+            <span class="card-arrow">→</span>
+          </button>
+
+          
+
+          <button class="quick-card safety-card"
+            (click)="selectCard('Drug Interactions')">
+            <span class="card-icon">✓</span>
+            <h3>Safety Tools</h3>
+            <p>Drug interactions, bleeding risk, and safety alerts.</p>
+            <span class="card-arrow">→</span>
+          </button>
+        </section>
+
+        <footer class="dashboard-footer">
+          <span class="hospital-name">✚ PSG Hospitals, Coimbatore</span>
+          <div class="footer-line"></div>
+          <span>Secure clinical workspace</span>
+          <span>NOACare v1.0</span>
+        </footer>
+      </ng-container>
+
+      <!-- ADD PATIENT WORKFLOW -->
+      <section class="patient-workflow" *ngIf="showPatientForm">
+
+        <div class="workflow-heading">
+          <button class="back-dashboard" type="button"
+            (click)="cancelPatientForm()">← Dashboard</button>
+          <span class="section-label">PATIENT MANAGEMENT</span>
+          <h1>Add New Patient</h1>
+          <p>Complete each stage to prepare the patient record.</p>
+        </div>
+
+        <!-- FIVE-STEP PROGRESS -->
+        <div class="stepper">
+          <div class="stepper-item"
+            *ngFor="let step of steps; let i = index"
+            [class.completed]="currentStep > i + 1"
+            [class.current]="currentStep === i + 1">
+
+            <div class="step-circle">
+              <span *ngIf="currentStep <= i + 1">{{ i + 1 }}</span>
+              <span *ngIf="currentStep > i + 1">✓</span>
+            </div>
+            <span class="step-name">{{ step }}</span>
+          </div>
+        </div>
+
+        <div class="step-progress-track">
+          <div class="step-progress-fill"
+            [style.width]="((currentStep - 1) / 4 * 100) + '%'">
+          </div>
+        </div>
+
+        <form #patientForm="ngForm" (ngSubmit)="nextStep(patientForm)">
+
+          <div class="form-card">
+
+            <div class="form-card-heading">
+              <div>
+                <span class="section-label">STAGE {{ currentStep }} OF 5</span>
+                <h2>{{ steps[currentStep - 1] }}</h2>
+                <p>{{ stepDescriptions[currentStep - 1] }}</p>
+              </div>
+              <span class="stage-badge">{{ currentStep }}/5</span>
+            </div>
+
+            <!-- STEP 1: PATIENT DETAILS -->
+            <div class="form-grid" *ngIf="currentStep === 1">
+              <div class="field-group full-width">
+                <label for="patientName">Patient full name <span>*</span></label>
+                <input id="patientName" name="patientName"
+                  [(ngModel)]="patient.name" required
+                  placeholder="Enter patient's full name" />
+              </div>
+
+              <div class="field-group">
+                <label for="patientId">Patient ID <span>*</span></label>
+                <input id="patientId" name="patientId"
+                  [(ngModel)]="patient.id" required
+                  placeholder="Enter hospital patient ID" />
+              </div>
+
+              <div class="field-group">
+                <label for="sex">Sex <span>*</span></label>
+                <select id="sex" name="sex" [(ngModel)]="patient.sex" required>
+                  <option value="" disabled>Select sex</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label for="height">Height (cm) <span>*</span></label>
+                <input id="height" name="height" type="number"
+                  min="1" max="300" step="0.1"
+                  [(ngModel)]="patient.height" required
+                  placeholder="e.g. 170" />
+              </div>
+
+              <div class="field-group">
+                <label for="weight">Weight (kg) <span>*</span></label>
+                <input id="weight" name="weight" type="number"
+                  min="0.1" max="700" step="0.1"
+                  [(ngModel)]="patient.weight" required
+                  placeholder="e.g. 68" />
+              </div>
+
+              <div class="field-group full-width bmi-panel">
+                <div>
+                  <span class="bmi-label">BODY MASS INDEX (BMI)</span>
+                  <p>Calculated automatically from height and weight.</p>
+                </div>
+                <div class="bmi-value">
+                  <strong>{{ bmi !== null ? bmi.toFixed(1) : '--' }}</strong>
+                  <span>kg/m²</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 2: CLINICAL INFORMATION -->
+            <div class="form-grid" *ngIf="currentStep === 2">
+              <div class="field-group">
+                <label for="diagnosis">Primary diagnosis <span>*</span></label>
+                <input id="diagnosis" name="diagnosis"
+                  [(ngModel)]="patient.diagnosis" required
+                  placeholder="Enter diagnosis" />
+              </div>
+
+              <div class="field-group">
+                <label for="indication">Anticoagulation indication <span>*</span></label>
+                <select id="indication" name="indication"
+                  [(ngModel)]="patient.indication" required>
+                  <option value="" disabled>Select indication</option>
+                  <option value="Atrial fibrillation">Atrial fibrillation</option>
+                  <option value="Venous thromboembolism">Venous thromboembolism</option>
+                  <option value="Deep vein thrombosis">Deep vein thrombosis</option>
+                  <option value="Pulmonary embolism">Pulmonary embolism</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label for="history">Relevant medical history</label>
+                <textarea id="history" name="history" rows="4"
+                  [(ngModel)]="patient.medicalHistory"
+                  placeholder="Previous conditions, procedures, or relevant history"></textarea>
+              </div>
+
+              <div class="field-group">
+                <label for="bleedingHistory">Previous bleeding history</label>
+                <select id="bleedingHistory" name="bleedingHistory"
+                  [(ngModel)]="patient.bleedingHistory">
+                  <option value="">Select option</option>
+                  <option value="No known history">No known history</option>
+                  <option value="Previous bleeding">Previous bleeding</option>
+                  <option value="Unknown">Unknown</option>
+                </select>
+              </div>
+
+              <div class="field-group full-width">
+                <label for="clinicalNotes">Additional clinical notes</label>
+                <textarea id="clinicalNotes" name="clinicalNotes" rows="3"
+                  [(ngModel)]="patient.clinicalNotes"
+                  placeholder="Enter additional clinical information"></textarea>
+              </div>
+            </div>
+
+            <!-- STEP 3: LABORATORY AND VITALS -->
+            <div class="form-grid" *ngIf="currentStep === 3">
+              <div class="field-group">
+                <label for="systolic">Systolic BP (mmHg)</label>
+                <input id="systolic" name="systolic" type="number"
+                  min="0" [(ngModel)]="patient.systolicBP"
+                  placeholder="e.g. 120" />
+              </div>
+
+              <div class="field-group">
+                <label for="diastolic">Diastolic BP (mmHg)</label>
+                <input id="diastolic" name="diastolic" type="number"
+                  min="0" [(ngModel)]="patient.diastolicBP"
+                  placeholder="e.g. 80" />
+              </div>
+
+              <div class="field-group">
+                <label for="pulse">Pulse (bpm)</label>
+                <input id="pulse" name="pulse" type="number"
+                  min="0" [(ngModel)]="patient.pulse"
+                  placeholder="e.g. 72" />
+              </div>
+
+              <div class="field-group">
+                <label for="temperature">Temperature (°C)</label>
+                <input id="temperature" name="temperature" type="number"
+                  step="0.1" [(ngModel)]="patient.temperature"
+                  placeholder="e.g. 36.8" />
+              </div>
+
+              <div class="field-group">
+                <label for="creatinine">Serum creatinine (mg/dL)</label>
+                <input id="creatinine" name="creatinine" type="number"
+                  min="0" step="0.01" [(ngModel)]="patient.creatinine"
+                  placeholder="Enter result" />
+              </div>
+
+              <div class="field-group">
+                <label for="egfr">eGFR (mL/min/1.73 m²)</label>
+                <input id="egfr" name="egfr" type="number"
+                  min="0" step="0.1" [(ngModel)]="patient.egfr"
+                  placeholder="Enter result" />
+              </div>
+
+              <div class="field-group">
+                <label for="hemoglobin">Hemoglobin (g/dL)</label>
+                <input id="hemoglobin" name="hemoglobin" type="number"
+                  min="0" step="0.1" [(ngModel)]="patient.hemoglobin"
+                  placeholder="Enter result" />
+              </div>
+
+              <div class="field-group">
+                <label for="platelets">Platelet count (×10⁹/L)</label>
+                <input id="platelets" name="platelets" type="number"
+                  min="0" [(ngModel)]="patient.platelets"
+                  placeholder="Enter result" />
+              </div>
+
+              <div class="field-group full-width">
+                <label for="labDate">Laboratory test date</label>
+                <input id="labDate" name="labDate" type="date"
+                  [(ngModel)]="patient.labDate" />
+              </div>
+            </div>
+
+            <!-- STEP 4: CURRENT MEDICATIONS -->
+            <div class="form-grid" *ngIf="currentStep === 4">
+              <div class="field-group full-width">
+                <label for="medications">Current medications</label>
+                <textarea id="medications" name="medications" rows="5"
+                  [(ngModel)]="patient.medications"
+                  placeholder="Enter medication name, dose, route, and frequency. One medication per line."></textarea>
+                <small class="field-hint">
+                  Include prescription medicines, over-the-counter medicines,
+                  and supplements where relevant.
+                </small>
+              </div>
+
+              <div class="field-group">
+                <label for="allergies">Known drug allergies <span>*</span></label>
+                <select id="allergies" name="allergies"
+                  [(ngModel)]="patient.allergies" required>
+                  <option value="" disabled>Select option</option>
+                  <option value="None reported">None reported</option>
+                  <option value="Known allergies">Known allergies</option>
+                  <option value="Unknown">Unknown</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label for="allergyDetails">Allergy details</label>
+                <input id="allergyDetails" name="allergyDetails"
+                  [(ngModel)]="patient.allergyDetails"
+                  placeholder="Medicine and reaction, if known" />
+              </div>
+
+              <div class="field-group full-width">
+                <label for="medicationNotes">Medication notes</label>
+                <textarea id="medicationNotes" name="medicationNotes" rows="3"
+                  [(ngModel)]="patient.medicationNotes"
+                  placeholder="Adherence, recent changes, or interaction concerns"></textarea>
+              </div>
+            </div>
+
+            <!-- STEP 5: REVIEW -->
+            <div *ngIf="currentStep === 5" class="review-section">
+              <div class="review-notice">
+                <strong>Review patient information</strong>
+                <p>Check all details before submitting the patient record.</p>
+              </div>
+
+              <div class="review-block">
+                <div class="review-block-heading">
+                  <h3>Patient details</h3>
+                  <button type="button" (click)="goToStep(1)">Edit</button>
+                </div>
+                <div class="review-grid">
+                  <div><small>Patient name</small><strong>{{ patient.name || '—' }}</strong></div>
+                  <div><small>Patient ID</small><strong>{{ patient.id || '—' }}</strong></div>
+                  <div><small>Sex</small><strong>{{ patient.sex || '—' }}</strong></div>
+                  <div><small>Height</small><strong>{{ patient.height || '—' }} cm</strong></div>
+                  <div><small>Weight</small><strong>{{ patient.weight || '—' }} kg</strong></div>
+                  <div><small>BMI</small><strong>{{ bmi !== null ? bmi.toFixed(1) + ' kg/m²' : '—' }}</strong></div>
+                </div>
+              </div>
+
+              <div class="review-block">
+                <div class="review-block-heading">
+                  <h3>Clinical information</h3>
+                  <button type="button" (click)="goToStep(2)">Edit</button>
+                </div>
+                <div class="review-grid">
+                  <div><small>Diagnosis</small><strong>{{ patient.diagnosis || '—' }}</strong></div>
+                  <div><small>Indication</small><strong>{{ patient.indication || '—' }}</strong></div>
+                  <div class="review-full"><small>Medical history</small><strong>{{ patient.medicalHistory || 'Not entered' }}</strong></div>
+                </div>
+              </div>
+
+              <div class="review-block">
+                <div class="review-block-heading">
+                  <h3>Laboratory & vitals</h3>
+                  <button type="button" (click)="goToStep(3)">Edit</button>
+                </div>
+                <div class="review-grid">
+                  <div><small>Blood pressure</small><strong>{{ patient.systolicBP || '—' }}/{{ patient.diastolicBP || '—' }} mmHg</strong></div>
+                  <div><small>Pulse</small><strong>{{ patient.pulse || '—' }} bpm</strong></div>
+                  <div><small>Creatinine</small><strong>{{ patient.creatinine || '—' }} mg/dL</strong></div>
+                  <div><small>eGFR</small><strong>{{ patient.egfr || '—' }}</strong></div>
+                  <div><small>Hemoglobin</small><strong>{{ patient.hemoglobin || '—' }} g/dL</strong></div>
+                  <div><small>Platelets</small><strong>{{ patient.platelets || '—' }}</strong></div>
+                </div>
+              </div>
+
+              <div class="review-block">
+                <div class="review-block-heading">
+                  <h3>Current medications</h3>
+                  <button type="button" (click)="goToStep(4)">Edit</button>
+                </div>
+                <div class="review-grid">
+                  <div class="review-full"><small>Medications</small><strong class="preserve-lines">{{ patient.medications || 'Not entered' }}</strong></div>
+                  <div><small>Allergies</small><strong>{{ patient.allergies || '—' }}</strong></div>
+                  <div><small>Allergy details</small><strong>{{ patient.allergyDetails || '—' }}</strong></div>
+                </div>
+              </div>
+
+              <label class="confirmation-check">
+                <input type="checkbox" name="reviewConfirmed"
+                  [(ngModel)]="patient.reviewConfirmed" required />
+                I confirm that I have reviewed the information entered.
+              </label>
+
+              <p class="clinical-disclaimer">
+                This form records entered information. It does not independently
+                validate clinical suitability or recommend an anticoagulant dose.
+                Clinical decisions require review by an appropriately qualified clinician.
+              </p>
+            </div>
+
+            <!-- FORM FOOTER -->
+            <div class="form-actions">
+              <button type="button" class="secondary-form-button"
+                (click)="previousStep()"
+                [disabled]="currentStep === 1">
+                ← Back
+              </button>
+
+              <span class="step-counter">Step {{ currentStep }} of 5</span>
+
+              <button *ngIf="currentStep < 5"
+                type="submit" class="next-button">
+                Save & Continue →
+              </button>
+
+              <button *ngIf="currentStep === 5"
+                type="button" class="next-button"
+                (click)="submitPatient()"
+                [disabled]="!patient.reviewConfirmed">
+                Submit Patient
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <footer class="dashboard-footer">
+          <span class="hospital-name">✚ PSG Hospitals, Coimbatore</span>
+          <div class="footer-line"></div>
+          <span>Secure clinical workspace</span>
+          <span>NOACare v1.0</span>
+        </footer>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MOBILE OVERLAY -->
+  <button *ngIf="mobileMenuOpen" class="mobile-overlay"
+    type="button" aria-label="Close navigation"
+    (click)="mobileMenuOpen = false"></button>
+</div>
+
+<!-- SUCCESS MESSAGE -->
+<div class="message-overlay" *ngIf="showSuccessMessage">
+  <div class="message-card">
+    <div class="success-icon">✓</div>
+    <h2>Patient information prepared</h2>
+    <p>{{ successMessage }}</p>
+    <button class="next-button" (click)="finishPatient()">Return to Dashboard</button>
+  </div>
 </div>
